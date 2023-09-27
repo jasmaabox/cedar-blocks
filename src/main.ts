@@ -1,10 +1,9 @@
 import Blockly from 'blockly';
 
-const VARIABLE_COLOR = 270;
-const STRING_COLOR = 120;
+const BUILTIN_COLOR = 270;
 const IDENTIFIER_COLOR = 20;
 const OPERATOR_COLOR = 90;
-const PERMIT_COLOR = 160;
+const PERMIT_COLOR = 120;
 const FORBID_COLOR = 0;
 
 Blockly.defineBlocksWithJsonArray([
@@ -26,67 +25,43 @@ Blockly.defineBlocksWithJsonArray([
     "colour": IDENTIFIER_COLOR,
   },
   {
-    "type": "cedar_principal",
-    "message0": 'principal',
-    "colour": VARIABLE_COLOR,
-    "output": null,
-  },
-  {
-    "type": "cedar_action",
-    "message0": 'action',
-    "colour": VARIABLE_COLOR,
-    "output": null,
-  },
-  {
-    "type": "cedar_resource",
-    "message0": 'resource',
-    "colour": VARIABLE_COLOR,
-    "output": null,
-  },
-  {
-    "type": "cedar_context",
-    "message0": 'context',
-    "colour": VARIABLE_COLOR,
-    "output": null,
-  },
-  {
-    "type": "cedar_string",
-    "message0": "\"%1\"",
+    "type": "cedar_builtin",
+    "message0": "%1",
     "args0": [
       {
-        "type": "field_input",
+        "type": "field_dropdown",
         "name": "VALUE",
+        "options": [
+          ["principal", "principal"],
+          ["action", "action"],
+          ["resource", "resource"],
+          ["context", "context"],
+        ],
       },
     ],
-    "colour": STRING_COLOR,
-    "inputsInline": true,
+    "colour": BUILTIN_COLOR,
     "output": null,
   },
-  // TODO: fix in to take a list
   {
-    "type": "cedar_in",
-    "message0": '%1 in %2',
+    "type": "cedar_binary_operator",
+    "message0": '%1 %2 %3',
     "args0": [
       {
         "type": "input_value",
         "name": "VALUE",
       },
       {
-        "type": "input_value",
+        "type": "field_dropdown",
         "name": "VALUE",
-      },
-    ],
-    "output": true,
-    "inputsInline": true,
-    "colour": OPERATOR_COLOR,
-  },
-  {
-    "type": "cedar_equals",
-    "message0": '%1 == %2',
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "VALUE",
+        "options": [
+          ["==", "equals"],
+          ["!=", "notequals"],
+          [">", "greaterthan"],
+          ["<", "lessthan"],
+          [">=", "greaterthanorequals"],
+          ["<=", "lessthanorequals"],
+          ["in", "in"],
+        ],
       },
       {
         "type": "input_value",
@@ -183,41 +158,44 @@ Blockly.defineBlocksWithJsonArray([
   },
 ]);
 
-const toolbox = {
-  "kind": "flyoutToolbox",
+const entitiesCategory = {
+  "kind": "category",
+  "name": "Entities",
   "contents": [
+    {
+      "kind": "block",
+      "type": "cedar_builtin"
+    },
+    {
+      "kind": "block",
+      "type": "text"
+    },
     {
       "kind": "block",
       "type": "cedar_scope"
     },
+  ]
+};
+
+const operatorsCategory = {
+  "kind": "category",
+  "name": "Operators",
+  "contents": [
     {
       "kind": "block",
-      "type": "cedar_principal"
+      "type": "cedar_binary_operator"
     },
     {
       "kind": "block",
-      "type": "cedar_action"
+      "type": "lists_create_with"
     },
-    {
-      "kind": "block",
-      "type": "cedar_resource"
-    },
-    {
-      "kind": "block",
-      "type": "cedar_context"
-    },
-    {
-      "kind": "block",
-      "type": "cedar_string"
-    },
-    {
-      "kind": "block",
-      "type": "cedar_in"
-    },
-    {
-      "kind": "block",
-      "type": "cedar_equals"
-    },
+  ]
+};
+
+const policiesCategory = {
+  "kind": "category",
+  "name": "Policies",
+  "contents": [
     {
       "kind": "block",
       "type": "cedar_permit"
@@ -234,6 +212,15 @@ const toolbox = {
       "kind": "block",
       "type": "cedar_forbid_when"
     },
+  ]
+};
+
+const toolbox = {
+  "kind": "categoryToolbox",
+  "contents": [
+    policiesCategory,
+    entitiesCategory,
+    operatorsCategory,
   ]
 };
 
