@@ -8,6 +8,14 @@ const entitiesCategory = {
     },
     {
       kind: "block",
+      type: "cedar_identifier",
+    },
+    {
+      kind: "block",
+      type: "cedar_boolean",
+    },
+    {
+      kind: "block",
       type: "text",
     },
     {
@@ -23,7 +31,15 @@ const operatorsCategory = {
   contents: [
     {
       kind: "block",
-      type: "cedar_binary_operator",
+      type: "cedar_boolean_binary_operator",
+    },
+    {
+      kind: "block",
+      type: "cedar_math_binary_operator",
+    },
+    {
+      kind: "block",
+      type: "cedar_property",
     },
     {
       kind: "block",
@@ -39,31 +55,50 @@ const policiesCategory = {
     {
       kind: "block",
       type: "cedar_policy",
+      inputs: {
+        "PRINCIPAL": {
+          "shadow": {
+            "type": "cedar_builtin",
+            "fields": {
+              "VALUE": "principal"
+            },
+          },
+        },
+        "ACTION": {
+          "shadow": {
+            "type": "cedar_builtin",
+            "fields": {
+              "VALUE": "action"
+            },
+          },
+        },
+        "RESOURCE": {
+          "shadow": {
+            "type": "cedar_builtin",
+            "fields": {
+              "VALUE": "resource"
+            },
+          },
+        },
+      }
     },
     {
       kind: "block",
-      type: "cedar_policy_when",
-    },
-    {
-      kind: "block",
-      type: "cedar_permit",
-    },
-    {
-      kind: "block",
-      type: "cedar_permit_when",
-    },
-    {
-      kind: "block",
-      type: "cedar_forbid",
-    },
-    {
-      kind: "block",
-      type: "cedar_forbid_when",
+      type: "cedar_conditional",
     },
   ],
 };
 
-export const toolbox = {
+export const categoryToolbox = {
   kind: "categoryToolbox",
   contents: [policiesCategory, entitiesCategory, operatorsCategory],
 };
+
+export const flyoutToolbox = {
+  kind: "flyoutToolbox",
+  contents: [
+    ...policiesCategory.contents,
+    ...entitiesCategory.contents,
+    ...operatorsCategory.contents,
+  ],
+}
