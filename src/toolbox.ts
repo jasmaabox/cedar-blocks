@@ -9,6 +9,9 @@ const entitiesCategory = {
     {
       kind: "block",
       type: "cedar_identifier",
+      fields: {
+        "VALUE": "User"
+      }
     },
     {
       kind: "block",
@@ -16,11 +19,39 @@ const entitiesCategory = {
     },
     {
       kind: "block",
+      type: "cedar_number",
+      fields: {
+        "VALUE": 0,
+      }
+    },
+    {
+      kind: "block",
       type: "text",
+      fields: {
+        "TEXT": "Alice",
+      }
     },
     {
       kind: "block",
       type: "cedar_scope",
+      inputs: {
+        "ARG1": {
+          "shadow": {
+            "type": "cedar_identifier",
+            "fields": {
+              "VALUE": "User"
+            },
+          },
+        },
+        "ARG2": {
+          "shadow": {
+            "type": "text",
+            "fields": {
+              "TEXT": "Alice"
+            },
+          },
+        },
+      }
     },
   ],
 };
@@ -32,14 +63,68 @@ const operatorsCategory = {
     {
       kind: "block",
       type: "cedar_boolean_binary_operator",
+      inputs: {
+        "ARG1": {
+          "shadow": {
+            "type": "cedar_number",
+            "fields": {
+              "VALUE": 0
+            },
+          },
+        },
+        "ARG2": {
+          "shadow": {
+            "type": "cedar_number",
+            "fields": {
+              "VALUE": 0
+            },
+          },
+        },
+      }
     },
     {
       kind: "block",
       type: "cedar_math_binary_operator",
+      inputs: {
+        "ARG1": {
+          "shadow": {
+            "type": "cedar_number",
+            "fields": {
+              "VALUE": 0
+            },
+          },
+        },
+        "ARG2": {
+          "shadow": {
+            "type": "cedar_number",
+            "fields": {
+              "VALUE": 0
+            },
+          },
+        },
+      }
     },
     {
       kind: "block",
       type: "cedar_property",
+      inputs: {
+        "ARG1": {
+          "shadow": {
+            "type": "cedar_builtin",
+            "fields": {
+              "VALUE": "context"
+            },
+          },
+        },
+        "ARG2": {
+          "shadow": {
+            "type": "cedar_identifier",
+            "fields": {
+              "VALUE": "mfa_authenticated"
+            },
+          },
+        },
+      }
     },
     {
       kind: "block",
@@ -85,6 +170,16 @@ const policiesCategory = {
     {
       kind: "block",
       type: "cedar_conditional",
+      inputs: {
+        "CONDITION_BODY": {
+          "shadow": {
+            "type": "cedar_builtin",
+            "fields": {
+              "VALUE": "context"
+            },
+          },
+        },
+      }
     },
   ],
 };

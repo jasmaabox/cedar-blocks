@@ -62,6 +62,18 @@ export function defineCedarBlocks() {
       output: null,
     },
     {
+      type: "cedar_number",
+      message0: "%1",
+      args0: [
+        {
+          type: "field_input",
+          name: "VALUE",
+        },
+      ],
+      output: null,
+      colour: LITERAL_COLOR,
+    },
+    {
       type: "cedar_boolean_binary_operator",
       message0: "%1 %2 %3",
       args0: [

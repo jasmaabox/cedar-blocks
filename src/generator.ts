@@ -166,6 +166,11 @@ cedarGenerator.forBlock["cedar_boolean"] = function (block, generator) {
   return [`${value}`, Order.ATOMIC];
 };
 
+cedarGenerator.forBlock["cedar_number"] = function (block, generator) {
+  const value = block.getFieldValue("VALUE");
+  return [`${value}`, Order.ATOMIC];
+};
+
 cedarGenerator.forBlock["lists_create_with"] = function (block, generator) {
   const values = [];
   // @ts-ignore
